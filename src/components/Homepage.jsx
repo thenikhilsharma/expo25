@@ -9,7 +9,7 @@ import {
 import Logo from "../assets/Expo.png";
 import Ecell from "../assets/ecell-white-img.webp";
 import "./global.css";
-import brochure from "../assets/brochure.pdf";
+import brochure from "../assets/Start-up25_brochure.pdf";
 
 function Homepage() {
   return (
