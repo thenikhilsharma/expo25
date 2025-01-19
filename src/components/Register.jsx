@@ -28,9 +28,6 @@ export default function Register() {
     e.preventDefault();
 
     const validationErrors = validateForm(formData);
-    if (!checkboxChecked) {
-      validationErrors.checkbox = "You must agree to the declaration.";
-    }
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -147,23 +144,17 @@ export default function Register() {
             ></textarea>
             <span style={{ color: "red" }}>{errors.description}</span>
           </div>
-          <div className="flex flex-col justify-center my-3">
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                className="mt-1"
-                checked={checkboxChecked}
-                onChange={() => {
-                  setCheckboxChecked(!checkboxChecked);
-                  setErrors((prevErrors) => ({ ...prevErrors, checkbox: "" })); // Clear error on change
-                }}
-              />
-              <label htmlFor="" className="ml-2 text-white">
-                I hereby declare that I have read the brochure and the details
-                furnished above are correct to the best of my knowledge.
-              </label>
-            </div>
-            <span style={{ color: "red" }}>{errors.checkbox}</span>
+          <div className="flex justify-center my-3">
+            <input
+              type="checkbox"
+              className="mt-1"
+              checked={checkboxChecked}
+              onChange={() => setCheckboxChecked(!checkboxChecked)}
+            />
+            <label htmlFor="" className="ml-2 text-white">
+              I hereby declare that I have read the brochure and the details
+              furnished above are correct to the best of my knowledge.
+            </label>
           </div>
 
           <div className="flex justify-center m-auto">
