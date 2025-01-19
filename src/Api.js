@@ -13,7 +13,7 @@ export const registerUser = async (formData) => {
 
   // Check if the response is OK, otherwise throw an error
   if (!response.ok) {
-    throw new Error("Failed to register");
+    throw new Error("Email already exist");
   }
 
   const responseData = await response.json();
