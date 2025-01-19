@@ -145,18 +145,12 @@ export default function Register() {
             <span style={{ color: "red" }}>{errors.description}</span>
           </div>
           <div className="flex justify-center my-3">
-            <input
-              type="checkbox"
-              className="mt-1"
-              checked={checkboxChecked}
-              onChange={() => setCheckboxChecked(!checkboxChecked)}
-            />
+            <input type="checkbox" className="mt-1" checked={checkboxChecked} />
             <label htmlFor="" className="ml-2 text-white">
               I hereby declare that I have read the brochure and the details
               furnished above are correct to the best of my knowledge.
             </label>
           </div>
-
           <div className="flex justify-center m-auto">
             <button
               type="submit"
