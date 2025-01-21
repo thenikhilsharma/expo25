@@ -11,27 +11,43 @@ export default function Register() {
     headquarter: "",
     linkedin: "",
     description: "",
+    challan: "",
   });
 
+  const [challan, setChallan] = useState(""); // Challan number state
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [challanError, setChallanError] = useState(""); // Challan error state
 
   const handleChange = (e) => {
     setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: "" }));
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleChallanChange = (e) => {
+    setChallan(e.target.value);
+    formData.challan = e.target.value;
+    setChallanError(""); // Reset error when user starts typing
+  };
+
   // Register.jsx
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate form fields
     const validationErrors = validateForm(formData);
+    setChallanError("");
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
+    }
+
+    // Validate Challan Number
+    if (!challan) {
+      throw new Error("Please provide the challan number of your payment.");
     }
 
     try {
@@ -41,6 +57,11 @@ export default function Register() {
     } catch (error) {
       console.error("Form submission error:", error);
       setMessage(error.message || "An error occurred"); // Display error message to the user
+      if (
+        error.message.includes("Please give challan number of your payment")
+      ) {
+        setChallanError(error.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -144,6 +165,37 @@ export default function Register() {
             ></textarea>
             <span style={{ color: "red" }}>{errors.description}</span>
           </div>
+          <div className="mb-2 mt-2 text-white text-lg">
+            Step 2:{" "}
+            <a
+              className="text-[#4a4adf] underline text-lg"
+              href="https://pay.vnit.ac.in/event"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Generate Challan
+            </a>
+            <p className="mb-2 px-5 text-white text-lg">
+              Please visit the link, complete the payment , and then copy and
+              paste the Challan number from the official VNIT payment site.
+            </p>
+          </div>
+
+          <label htmlFor="challan" className="mb-2 text-lg">
+            Challan Number
+          </label>
+          <input
+            type="text"
+            id="challan"
+            name="challan"
+            value={formData.challan}
+            onChange={handleChallanChange}
+            className="border bg-[#fff] text-[black] border-gray-400 rounded px-2 py-1 mb-2 "
+          />
+          {challanError && (
+            <div className="text-red-500">{challanError}</div> // Display the error message for challan
+          )}
+
           <div className="flex justify-center my-3">
             <input
               type="checkbox"
